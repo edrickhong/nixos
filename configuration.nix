@@ -20,6 +20,9 @@
 			efiSupport = true;
 			device = "nodev";  # EFI system
 			useOSProber = true;
+			postInstall = ''
+  				/run/current-system/sw/bin/efibootmgr -o 0001,0000
+				'';
 		};
 	};
 
