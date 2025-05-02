@@ -20,11 +20,12 @@
 			efiSupport = true;
 			device = "nodev";  # EFI system
 			useOSProber = true;
-			postInstall = ''
-  				/run/current-system/sw/bin/efibootmgr -o 0001,0000
-				'';
 		};
 	};
+
+	system.activationScripts.fix-efi-boot-order.text = ''
+  		/run/current-system/sw/bin/efibootmgr -o 0001,0000
+		'';
 
 	networking.hostName = "corvus"; # Define your hostname.
 	networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
