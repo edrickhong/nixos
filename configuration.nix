@@ -39,6 +39,7 @@
 	# Define a user account. Don't forget to set a password with ‘passwd’.
 	users.users.corvus = {
 		isNormalUser = true;
+		shell = pkgs.zsh;
 		extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
 			packages = with pkgs; [
 			tree
@@ -92,6 +93,7 @@
 			];
 
 	environment.shells = with pkgs; [zsh];
+	programs.zsh.enable =true;
 
 	# Enable sound.
 	services.pipewire = {
