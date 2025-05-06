@@ -84,7 +84,7 @@
 	history.size = 10000;
 
 	shellAliases = {
-		
+		vim = "nvim"
 	};
 
 	initExtra = ''
