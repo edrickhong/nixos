@@ -84,7 +84,9 @@
 	history.size = 10000;
 
 	shellAliases = {
-		vim = "nvim"
+		vim = "nvim";
+		nix-switch = "pushd ~/.config/nixos && sudo nixos-rebuild switch --flake . && popd";
+		hm-switch = "pushd ~/.config/nixos && home-manager switch --flake . && popd";
 	};
 
 	initExtra = ''
