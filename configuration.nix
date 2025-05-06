@@ -8,6 +8,7 @@
 	imports =
 		[ # Include the results of the hardware scan.
 		./hardware-configuration.nix
+		./sys/hyprland.nix
 		];
 
 	hardware.enableAllFirmware = true;
@@ -79,26 +80,6 @@
 			mesa.drivers
 
 
-	#wm level packages (WAYLAND)
-			wl-clipboard
-			xdg-desktop-portal
-			xdg-desktop-portal-hyprland
-			qt5.qtwayland
-			qt6.qtwayland
-			hyprland
-			swaynotificationcenter # notification daemon
-			libnotify
-			polkit-kde-agent
-			networkmanagerapplet
-			ghostty
-			waybar
-			rofi-wayland
-			yazi
-			nautilus
-			pavucontrol
-			greetd.tuigreet  #login manager
-			mpvpaper #wallpaper manager
-			mpv
 
 			];
 
@@ -109,7 +90,6 @@
 	#setup graphics
 	hardware.graphics = {
 		enable = true;
-		driSupport32Bit = true;
 	};
 
 	# Enable sound.
@@ -119,14 +99,8 @@
 		pulse.enable = true;
 		alsa.enable = true;
 	};
-	programs.hyprland.enable = true;
 
 
-	services.greetd.enable = true;
-	services.greetd.settings.default_session = {
-		command = "tuigreet --time --asterisks --user-menu --cmd Hyprland";
-		user = "greeter";
-	};
 
 
 
