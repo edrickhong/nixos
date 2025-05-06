@@ -69,8 +69,14 @@
 			gcc
 			btop
 			unzip
-			mesa
 			zsh
+
+			vulkan-loader
+			vulkan-tools
+			vulkan-validation-layers
+			vulkan-extension-layer
+			mesa
+			mesa.drivers
 
 
 	#wm level packages (WAYLAND)
@@ -97,7 +103,14 @@
 			];
 
 	environment.shells = with pkgs; [zsh];
-	programs.zsh.enable =true;
+	programs.zsh.enable = true;
+
+
+	#setup graphics
+	hardware.graphics = {
+		enable = true;
+		driSupport32Bit = true;
+	};
 
 	# Enable sound.
 	services.pipewire = {
