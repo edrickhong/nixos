@@ -4,9 +4,6 @@
 {
 	environment.systemPackages = with pkgs; [
 	#WAYLAND
-			libinput
-			wl-clipboard
-			xdg-desktop-portal
 	#HYPRLAND
 			xdg-desktop-portal-hyprland
 			qt5.qtwayland
@@ -27,6 +24,7 @@
 			mpv
 	];
 
+	ed.WM = "wayland";
 
 	programs.hyprland.enable = true;
 
