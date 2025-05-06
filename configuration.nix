@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-unstable, ... }:
 
 {
 	imports =
@@ -68,7 +68,6 @@
 		os-prober
 		grub2
 		efibootmgr
-		neovim
 		wget
 		git
 		git-filter-repo
@@ -88,6 +87,11 @@
 		mesa.drivers
 
 		] ++
+
+		(with pkgs-unstable; [
+		neovim
+		]) ++
+
 		(if(config.ed.WM == "wayland") then [
 			libinput
 			wl-clipboard
