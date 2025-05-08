@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, pkgs-unstable, ... }:
+{ config, lib, pkgs, pkgs-unstable, pkgs-custom, ... }:
 
 {
 	imports =
@@ -79,6 +79,12 @@
 		unzip
 		zsh
 
+
+		upower
+		gvfs
+		bluez
+		wireplumber
+
 		vulkan-loader
 		vulkan-tools
 		vulkan-validation-layers
@@ -113,11 +119,11 @@
 			audio.enable = true;
 			pulse.enable = true;
 			alsa.enable = true;
+			wireplumber.enable = true;
 		};
 
-
-
-
+		services.upower.enable = true;
+		services.blueman.enable = true;
 
 
 		# Some programs need SUID wrappers, can be configured further or are

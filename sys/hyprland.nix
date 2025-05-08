@@ -1,5 +1,5 @@
 
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-custom, ... }:
 
 {
 	environment.systemPackages = with pkgs; [
@@ -9,11 +9,9 @@
 			qt5.qtwayland
 			qt6.qtwayland
 			hyprland
-			swaynotificationcenter # notification daemon
 			libnotify
 			polkit-kde-agent
 			networkmanagerapplet
-			waybar
 			rofi-wayland
 			yazi
 			nautilus
@@ -22,7 +20,11 @@
 			greetd.tuigreet  #login manager
 			mpvpaper #wallpaper manager
 			mpv
-	];
+	] ++
+
+	(with pkgs-custom; [
+		hyprpanel
+	]);
 
 	ed.WM = "wayland";
 

@@ -1,4 +1,4 @@
-{ config, pkgs,pkgs-unstable, ... }:
+{ config, pkgs,pkgs-unstable,pkgs-custom, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -16,12 +16,15 @@
   home.stateVersion = "24.11"; # Please read the comment before changing.
   nixpkgs.config.allowUnfree = true;
 
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
 	google-chrome
-	dissent
 	spotify
+	vesktop
+	nwg-look
+
 
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -36,7 +39,14 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-  ];
+  ] ++
+
+  (with pkgs-unstable; [
+  ]) ++
+
+  (with pkgs-custom; [
+   ags
+  ]);
 
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
