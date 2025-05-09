@@ -9,6 +9,7 @@
 	[ # Include the results of the hardware scan.
 	./hardware-configuration.nix
 	./sys/hyprland.nix
+	./sys/corvus_disks.nix
 	];
 
 	options = {
@@ -31,6 +32,8 @@
 				useOSProber = true;
 			};
 		};
+
+		boot.supportedFilesystems = [ "btrfs" "ntfs" ];
 
 		system.activationScripts.fix-efi-boot-order.text = ''
 		/run/current-system/sw/bin/efibootmgr -o 0001,0000
@@ -112,6 +115,8 @@
 		hardware.graphics = {
 			enable = true;
 		};
+
+		hardware.bluetooth.enable = true;
 
 		# Enable sound.
 		services.pipewire = {

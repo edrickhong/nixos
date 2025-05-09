@@ -23,7 +23,15 @@
 	google-chrome
 	spotify
 	vesktop
-	nwg-look
+
+
+	#themes to test out
+	adw-gtk3
+	gnome-themes-extra
+	papirus-icon-theme
+	catppuccin-gtk
+	arc-theme
+	nerdfonts
 
 
 
@@ -42,6 +50,7 @@
   ] ++
 
   (with pkgs-unstable; [
+	nwg-look
   ]) ++
 
   (with pkgs-custom; [
@@ -52,16 +61,22 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
+# # Building this configuration will create a copy of 'dotfiles/screenrc' in
+# # the Nix store. Activating the configuration will then make '~/.screenrc' a
+# # symlink to the Nix store copy.
+# ".screenrc".source = dotfiles/screenrc;
 
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
+# # You can also set the file content immediately.
+# ".gradle/gradle.properties".text = ''
+#   org.gradle.console=verbose
+#   org.gradle.daemon.idletimeout=3600000
+# '';
+
+	  #".themes/Adwaita-dark".source = "${pkgs.adw-gtk3}/share/themes/Adwaita-dark";
+	  #".themes/Adwaita".source = "${pkgs.gnome-themes-extra}/share/themes/Adwaita";
+	  #".themes/Arc-Dark".source = "${pkgs.arc-theme}/share/themes/Arc-Dark";
+	  #".themes/Catppuccin-Mocha-Standard-Blue-Dark".source = "${pkgs.catppuccin-gtk}/share/themes/Catppuccin-Mocha-Standard-Blue-Dark";
+	  #".icons/Papirus".source = "${pkgs.papirus-icon-theme}/share/icons/Papirus";
   };
 
   # Home Manager can also manage your environment variables through
