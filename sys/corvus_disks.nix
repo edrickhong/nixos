@@ -1,8 +1,12 @@
 { config, pkgs, pkgs-custom, ... }:
 
 {
-
 	boot.supportedFilesystems = [ "btrfs" "ntfs" ];
+
+	systemd.tmpfiles.rules = [
+	"d /home/corvus/nvme 0755 corvus users - -"	
+	"d /home/corvus/storage 0755 corvus users - -"	
+	];
 
 	fileSystems."/home/corvus/nvme" = {
 		device = "UUID=C2A88F77A88F68AD";
