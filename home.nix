@@ -1,4 +1,4 @@
-{ config, pkgs,pkgs-unstable,pkgs-custom, ... }:
+{ lib, config, pkgs,pkgs-unstable,pkgs-custom, ... }:
 
 {
 # Home Manager needs a bit of information about you and the paths it should
@@ -39,6 +39,7 @@
 
 
 
+
 # # It is sometimes useful to fine-tune packages, for example, by applying
 # # overrides. You can do that directly here, just don't forget the
 # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -65,6 +66,11 @@
 # Home Manager is pretty good at managing dotfiles. The primary way to manage
 # plain files is through 'home.file'.
 	home.file = {
+
+	".gitconfig".source = config.lib.file.mkOutOfStoreSymlink "/home/corvus/git/home-config/.gitconfig";
+	".gdbinit".source = config.lib.file.mkOutOfStoreSymlink "/home/corvus/git/home-config/.gdbinit";
+
+
 # # Building this configuration will create a copy of 'dotfiles/screenrc' in
 # # the Nix store. Activating the configuration will then make '~/.screenrc' a
 # # symlink to the Nix store copy.
@@ -75,13 +81,8 @@
 #   org.gradle.console=verbose
 #   org.gradle.daemon.idletimeout=3600000
 # '';
-
-#".themes/Adwaita-dark".source = "${pkgs.adw-gtk3}/share/themes/Adwaita-dark";
-#".themes/Adwaita".source = "${pkgs.gnome-themes-extra}/share/themes/Adwaita";
-#".themes/Arc-Dark".source = "${pkgs.arc-theme}/share/themes/Arc-Dark";
-#".themes/Catppuccin-Mocha-Standard-Blue-Dark".source = "${pkgs.catppuccin-gtk}/share/themes/Catppuccin-Mocha-Standard-Blue-Dark";
-#".icons/Papirus".source = "${pkgs.papirus-icon-theme}/share/icons/Papirus";
 	};
+
 
 # Home Manager can also manage your environment variables through
 # 'home.sessionVariables'. These will be explicitly sourced when using a
@@ -98,7 +99,22 @@
 # or
 #
 #  /etc/profiles/per-user/corvus/etc/profile.d/hm-session-vars.sh
-#
+
+	home.activation.pullDotfiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+		DOTFILES_DIR="$HOME/git/home-config"
+
+		if [ -d "$DOTFILES_DIR/.git" ]; then
+			echo "Updating dotfiles repo..."
+				/run/current-system/sw/bin/git -C "$DOTFILES_DIR" pull --rebase
+				elif [ ! -d "$DOTFILES_DIR" ]; then
+				echo "Cloning dotfiles repo..."
+				/run/current-system/sw/bin/git clone https://github.com/edrickhong/home-config.git "$DOTFILES_DIR"
+		else
+			echo "Dotfiles directory exists but is not a git repo. Skipping."
+				fi
+				'';
+
+
 	home.sessionVariables = {
 		EDITOR = "nvim";
 	};

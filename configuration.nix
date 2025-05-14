@@ -95,6 +95,9 @@
 		mesa
 		mesa.drivers
 
+
+		mlocate
+
 		] ++
 
 		(with pkgs-unstable; [
@@ -106,6 +109,8 @@
 			wl-clipboard
 			xdg-desktop-portal
 		] else []);
+
+		users.groups.mlocate = {};
 
 		environment.shells = with pkgs; [zsh];
 		programs.zsh.enable = true;
