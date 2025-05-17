@@ -56,6 +56,7 @@
 
 			(with pkgs-unstable; [
 			 nwg-look
+			 orca-slicer
 			]) ++
 
 			(with pkgs-custom; [
