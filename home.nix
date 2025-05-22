@@ -37,7 +37,7 @@
 			nil
 			clang-tools
 
-
+			libreoffice
 
 
 # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -120,6 +120,8 @@
 		EDITOR = "nvim";
 	};
 
+	home.sessionPath = ["$HOME/bin"];
+
 # Let Home Manager install and manage itself.
 	programs.home-manager.enable = true;
 
@@ -131,12 +133,13 @@
 
 		shellAliases = {
 			vim = "nvim";
-			nix-switch = "pushd ~/.config/nixos && sudo nixos-rebuild switch --flake . && popd";
+			nx-switch = "pushd ~/.config/nixos && sudo nixos-rebuild switch --flake . && popd";
 			hm-switch = "pushd ~/.config/nixos && home-manager switch --flake . && popd";
+			nx-init-py = "nix-init-py.sh";
+			nx-dev = "nix develop";
 		};
 
 		initExtra = ''
-			export PATH="$HOME/bin:$PATH"
 			'';
 	};
 }
