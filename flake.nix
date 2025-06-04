@@ -2,9 +2,9 @@
 	description = "corvus";
 
 	inputs = {
-		nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+		nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 		nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-		home-manager.url = "github:nix-community/home-manager/release-24.11";
+		home-manager.url = "github:nix-community/home-manager/release-25.05";
 		home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
 		ags.url = "github:Aylur/ags";
