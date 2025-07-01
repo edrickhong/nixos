@@ -89,6 +89,7 @@
 		wget
 		git
 		git-filter-repo
+		git-lfs
 		cmake
 		ninja
 		clang
