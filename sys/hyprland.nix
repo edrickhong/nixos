@@ -10,7 +10,7 @@
 			qt6.qtwayland
 			hyprland
 			libnotify
-			polkit-kde-agent
+			kdePackages.polkit-kde-agent-1
 			networkmanagerapplet
 			rofi-wayland
 			yazi
