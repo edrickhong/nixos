@@ -31,13 +31,19 @@
 			papirus-icon-theme
 			catppuccin-gtk
 			arc-theme
-			nerdfonts
+
+			#nerdfonts
+			nerd-fonts.jetbrains-mono
+			nerd-fonts.fira-code
 
 #lsp
 			nil
 			clang-tools
 
 			libreoffice
+
+			v4l-utils
+			libva-utils
 
 
 # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -122,6 +128,7 @@
 
 	home.sessionPath = ["$HOME/bin"];
 
+
 # Let Home Manager install and manage itself.
 	programs.home-manager.enable = true;
 
@@ -139,7 +146,15 @@
 			nx-dev = "nix develop";
 		};
 
-		initExtra = ''
+		initContent = ''
 			'';
+	};
+
+	programs.obs-studio = {
+		enable = true;
+		plugins = with pkgs.obs-studio-plugins; [
+			wlrobs
+			obs-vkcapture
+		];
 	};
 }
