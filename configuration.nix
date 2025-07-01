@@ -39,8 +39,23 @@
 		/run/current-system/sw/bin/efibootmgr -o 0002,0000
 		'';
 
-		networking.hostName = "corvus"; # Define your hostname.
-		networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+		networking = {
+			hostName = "corvus";
+			interfaces.enp10s0.useDHCP = true;
+
+			networkmanager = {
+				enable = true;
+				dns = "none";
+
+				#connectionConfig = {
+					#"connection.autoconnect" = "true";
+					#"ip4.never-default" = "true";
+				#};
+			};
+
+
+			nameservers = [ "8.8.8.8" "8.8.4.4"];
+		};
 
 		time.timeZone = "America/New_York";
 
@@ -93,7 +108,6 @@
 		vulkan-validation-layers
 		vulkan-extension-layer
 		mesa
-		mesa.drivers
 
 
 		mlocate
@@ -143,6 +157,15 @@
 			enable = true;
 			enableSSHSupport = true;
 		};
+
+		programs.dconf.enable = true; # XDG portals stuff
+			xdg.portal = {
+				enable = true;
+				extraPortals = [
+					pkgs.xdg-desktop-portal-wlr
+					pkgs.xdg-desktop-portal-gtk
+				];
+			};
 
 		# Enable the OpenSSH daemon.
 		services.openssh.enable = true;
