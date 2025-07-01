@@ -45,8 +45,6 @@
 			v4l-utils
 			libva-utils
 
-			steam-run
-
 
 # # It is sometimes useful to fine-tune packages, for example, by applying
 # # overrides. You can do that directly here, just don't forget the
@@ -165,16 +163,16 @@
 
 	#home/bin scripts
 
-home.file.".local/share/applications/gamemaker.desktop".text = ''
-  [Desktop Entry]
-  Type=Application
-  Name=GameMaker
-  Exec=${config.home.homeDirectory}/bin/gm.sh
-  Icon=${config.home.homeDirectory}/bin/GameMaker/opt/GameMaker-Beta/GameMaker.png
-  Terminal=false
-  Categories=Development;
-  StartupNotify=false
-'';
+#home.file.".local/share/applications/gamemaker.desktop".text = ''
+  #[Desktop Entry]
+  #Type=Application
+  #Name=GameMaker
+  #Exec=${config.home.homeDirectory}/bin/gm.sh
+  #Icon=${config.home.homeDirectory}/bin/GameMaker/opt/GameMaker-Beta/GameMaker.png
+  #Terminal=false
+  #Categories=Development;
+  #StartupNotify=false
+#'';
 	
 
 }
