@@ -162,4 +162,19 @@
 			obs-vkcapture
 		];
 	};
+
+	#home/bin scripts
+
+home.file.".local/share/applications/gamemaker.desktop".text = ''
+  [Desktop Entry]
+  Type=Application
+  Name=GameMaker
+  Exec=${config.home.homeDirectory}/bin/gm.sh
+  Icon=${config.home.homeDirectory}/bin/GameMaker/opt/GameMaker-Beta/GameMaker.png
+  Terminal=false
+  Categories=Development;
+  StartupNotify=false
+'';
+	
+
 }
