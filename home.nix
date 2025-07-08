@@ -80,7 +80,7 @@
 	".gitconfig".source = config.lib.file.mkOutOfStoreSymlink "/home/corvus/git/home-config/.gitconfig";
 	".gdbinit".source = config.lib.file.mkOutOfStoreSymlink "/home/corvus/git/home-config/.gdbinit";
 
-	".steam/root/compatibility.d/GE-Proton9-4".source = 
+	".steam/root/compatibilitytools.d/GE-Proton9-4".source = 
 		pkgs.fetchzip{
 			url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-4/GE-Proton9-4.tar.gz";
 			sha256 = "sha256-OR4SUqm5Xsycv/KVBW2Ug/lz4Xr6IQBp8gXacorRe3U=";
