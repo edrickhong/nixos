@@ -15,6 +15,7 @@
 			rofi-wayland
 			yazi
 			nautilus
+			nautilus-open-any-terminal
 			ghostty
 			pavucontrol
 			greetd.tuigreet  #login manager
@@ -29,6 +30,11 @@
 	ed.WM = "wayland";
 
 	programs.hyprland.enable = true;
+	
+	programs.nautilus-open-any-terminal = {
+		enable = true;
+		terminal = "ghostty";
+	};
 
 	services.greetd.enable = true;
 	services.greetd.settings.default_session = {
