@@ -90,17 +90,26 @@
 		git
 		git-filter-repo
 		git-lfs
-		cmake
-		ninja
-		clang
-		gcc
+
+		#these dev tools should be installed with a dev shell flake
+		#cmake
+		#ninja
+		#clang
+		#gcc
+
 		btop
 		unzip
 		zsh
 
+		#auto disk mounting and other disk utils
+		usbutils
+		udisks
+		udiskie
+		gvfs
+
+
 
 		upower
-		gvfs
 		bluez
 		wireplumber
 
@@ -156,6 +165,13 @@
 		services.blueman.enable = true;
 
 
+		# Enable the OpenSSH daemon.
+		services.openssh.enable = true;
+
+		#file mounting services
+		services.gvfs.enable = true;
+		services.udisks2.enable = true;
+
 		# Some programs need SUID wrappers, can be configured further or are
 		# started in user sessions.
 		programs.mtr.enable = true;
@@ -173,8 +189,6 @@
 				];
 			};
 
-		# Enable the OpenSSH daemon.
-		services.openssh.enable = true;
 
 		nix.settings.auto-optimise-store = true;
 		nix.gc = {
