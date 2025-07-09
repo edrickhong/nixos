@@ -36,7 +36,7 @@
 		boot.supportedFilesystems = [ "btrfs" "ntfs" ];
 
 		system.activationScripts.fix-efi-boot-order.text = ''
-		/run/current-system/sw/bin/efibootmgr -o 0002,0000
+		/run/current-system/sw/bin/efibootmgr -o 0001,0000
 		'';
 
 		networking = {
