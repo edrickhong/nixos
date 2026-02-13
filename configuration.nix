@@ -8,52 +8,22 @@
 	imports =
 	[ # Include the results of the hardware scan.
 	./hardware-configuration.nix
-	./sys/hyprland.nix
-	./sys/corvus_disks.nix
+	./sys/desktop_disks.nix 
+	./sys/gnome.nix 
+	#./sys/hyprland.nix #TODO: test this out
 	];
-
-	options = {
-		ed.WM = lib.mkOption {
-			type = lib.types.str;
-			default = "wayland";
-		};
-	};
 
 	config = {
 		hardware.enableAllFirmware = true;
 
 		boot.loader = {
+			systemd-boot.enable = true;
 			efi.canTouchEfiVariables = true;
-
-			grub = {
-				enable = true;
-				efiSupport = true;
-				device = "nodev";  # EFI system
-				useOSProber = true;
-			};
 		};
 
-		boot.supportedFilesystems = [ "btrfs" "ntfs" ];
-
-		system.activationScripts.fix-efi-boot-order.text = ''
-		/run/current-system/sw/bin/efibootmgr -o 0001,0000
-		'';
-
 		networking = {
-			hostName = "corvus";
-			interfaces.enp10s0.useDHCP = true;
-
-			networkmanager = {
-				enable = true;
-				dns = "none";
-
-				#connectionConfig = {
-					#"connection.autoconnect" = "true";
-					#"ip4.never-default" = "true";
-				#};
-			};
-
-
+			hostName = "vultur";
+			networkmanager.enable = true;
 			nameservers = [ "8.8.8.8" "8.8.4.4"];
 		};
 
@@ -68,10 +38,9 @@
 
 
 		# Define a user account. Don't forget to set a password with ‘passwd’.
-		users.users.corvus = {
+		users.users.edrick = {
 			isNormalUser = true;
-			shell = pkgs.zsh;
-			extraGroups = [ "wheel" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
+			extraGroups = [ "wheel" "networkmanager"]; # Enable ‘sudo’ for the user.
 			packages = with pkgs; [
 			tree
 			];
@@ -83,31 +52,21 @@
 
 		environment.systemPackages = with pkgs; [
 		#Sys level packages that all sytems should have
-		os-prober
-		grub2
-		efibootmgr
 		wget
 		git
 		git-filter-repo
 		git-lfs
 
 		#these dev tools should be installed with a dev shell flake
-		#cmake
-		#ninja
-		#clang
-		#gcc
 
 		btop
 		unzip
-		zsh
 
 		#auto disk mounting and other disk utils
 		usbutils
 		udisks
 		udiskie
 		gvfs
-
-
 
 		upower
 		bluez
@@ -119,27 +78,15 @@
 		vulkan-extension-layer
 		mesa
 
-
 		mlocate
 
 		] ++
 
 		(with pkgs-unstable; [
 		neovim
-		]) ++
-
-		(if(config.ed.WM == "wayland") then [
-			libinput
-			wl-clipboard
-			xdg-desktop-portal
-		] else []);
+		]);
 
 		users.groups.mlocate = {};
-
-		environment.shells = with pkgs; [zsh];
-		programs.zsh.enable = true;
-
-
 		programs.steam.enable = true;
 
 
@@ -149,8 +96,6 @@
 		};
 
 		hardware.bluetooth.enable = true;
-
-		virtualisation.docker.enable = true;
 
 		# Enable sound.
 		services.pipewire = {
@@ -180,14 +125,6 @@
 			enableSSHSupport = true;
 		};
 
-		programs.dconf.enable = true; # XDG portals stuff
-			xdg.portal = {
-				enable = true;
-				extraPortals = [
-					pkgs.xdg-desktop-portal-wlr
-					pkgs.xdg-desktop-portal-gtk
-				];
-			};
 
 
 		nix.settings.auto-optimise-store = true;
@@ -197,9 +134,9 @@
 			options = "--delete-generations +5";
 		};
 
-		swapDevices = [ { device = "/var/swap/swapfile";} ];
+		swapDevices = [ { device = "/swapfile"; size = 16 * 1024; } ];
 
-		system.stateVersion = "24.11"; # Did you read the comment?
+		system.stateVersion = "25.11"; # Did you read the comment?
 	};
 
 

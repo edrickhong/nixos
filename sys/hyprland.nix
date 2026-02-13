@@ -4,6 +4,9 @@
 {
 	environment.systemPackages = with pkgs; [
 	#WAYLAND
+			libinput
+			wl-clipboard
+			xdg-desktop-portal
 	#HYPRLAND
 			xdg-desktop-portal-hyprland
 			qt5.qtwayland
@@ -27,14 +30,21 @@
 		hyprpanel
 	]);
 
-	ed.WM = "wayland";
-
 	programs.hyprland.enable = true;
 	
 	programs.nautilus-open-any-terminal = {
 		enable = true;
 		terminal = "ghostty";
 	};
+
+	programs.dconf.enable = true; # XDG portals stuff
+		xdg.portal = {
+			enable = true;
+			extraPortals = [
+				pkgs.xdg-desktop-portal-wlr
+				pkgs.xdg-desktop-portal-gtk
+			];
+		};
 
 	services.greetd.enable = true;
 	services.greetd.settings.default_session = {

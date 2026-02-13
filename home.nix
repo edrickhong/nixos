@@ -3,8 +3,8 @@
 {
 # Home Manager needs a bit of information about you and the paths it should
 # manage.
-	home.username = "corvus";
-	home.homeDirectory = "/home/corvus";
+	home.username = "edrick";
+	home.homeDirectory = "/home/edrick";
 
 # This value determines the Home Manager release that your configuration is
 # compatible with. This helps avoid breakage when a new Home Manager release
@@ -13,28 +13,17 @@
 # You should not change this value, even if you update Home Manager. If you do
 # want to update the value, then make sure to first check the Home Manager
 # release notes.
-	home.stateVersion = "25.05"; # Please read the comment before changing.
+	home.stateVersion = "25.11"; # Please read the comment before changing.
 	nixpkgs.config.allowUnfree = true;
 
 
 # The home.packages option allows you to install Nix packages into your
 # environment.
 	home.packages = with pkgs; [
-		google-chrome
+		        google-chrome
 			spotify
 			vesktop
 
-
-#themes to test out
-			adw-gtk3
-			gnome-themes-extra
-			papirus-icon-theme
-			catppuccin-gtk
-			arc-theme
-
-			#nerdfonts
-			nerd-fonts.jetbrains-mono
-			nerd-fonts.fira-code
 
 #lsp
 			nil
@@ -61,30 +50,19 @@
 			] ++
 
 			(with pkgs-unstable; [
-			 nwg-look
 			 orca-slicer
 			]) ++
 
 			(with pkgs-custom; [
-			 ags
 			]);
-
-
-	fonts.fontconfig.enable = true;
 
 
 # Home Manager is pretty good at managing dotfiles. The primary way to manage
 # plain files is through 'home.file'.
 	home.file = {
 
-	".gitconfig".source = config.lib.file.mkOutOfStoreSymlink "/home/corvus/git/home-config/.gitconfig";
-	".gdbinit".source = config.lib.file.mkOutOfStoreSymlink "/home/corvus/git/home-config/.gdbinit";
-
-	".steam/root/compatibilitytools.d/GE-Proton9-4".source = 
-		pkgs.fetchzip{
-			url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-4/GE-Proton9-4.tar.gz";
-			sha256 = "sha256-OR4SUqm5Xsycv/KVBW2Ug/lz4Xr6IQBp8gXacorRe3U=";
-		};
+	".gitconfig".source = config.lib.file.mkOutOfStoreSymlink "/home/edrick/git/home-config/.gitconfig";
+	".gdbinit".source = config.lib.file.mkOutOfStoreSymlink "/home/edrick/git/home-config/.gdbinit";
 
 
 # # Building this configuration will create a copy of 'dotfiles/screenrc' in
@@ -114,7 +92,7 @@
 #
 # or
 #
-#  /etc/profiles/per-user/corvus/etc/profile.d/hm-session-vars.sh
+#  /etc/profiles/per-user/edrick/etc/profile.d/hm-session-vars.sh
 
 	home.activation.pullDotfiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
 		DOTFILES_DIR="$HOME/git/home-config"
@@ -141,45 +119,18 @@
 # Let Home Manager install and manage itself.
 	programs.home-manager.enable = true;
 
-	programs.zsh = {
+	programs.bash = {
 		enable = true;
-		enableCompletion = true;
-		syntaxHighlighting.enable = true;
-		history.size = 10000;
 
 		shellAliases = {
 			vim = "nvim";
-			nx-switch = "pushd ~/.config/nixos && sudo nixos-rebuild switch --flake . && popd";
-			hm-switch = "pushd ~/.config/nixos && home-manager switch --flake . && popd";
+			nx-switch = "pushd ~/.config/nixos && sudo nixos-rebuild switch --flake .#edrick && popd";
+			hm-switch = "pushd ~/.config/nixos && home-manager switch --flake .#edrick && popd";
 			nx-init-py = "nix-init-py.sh";
 			nx-dev = "nix develop";
 		};
 
-		initContent = ''
-			'';
 	};
 
-	programs.obs-studio = {
-		enable = true;
-		plugins = with pkgs.obs-studio-plugins; [
-			wlrobs
-			obs-vkcapture
-		];
-	};
-
-
-	#home/bin scripts
-
-#home.file.".local/share/applications/gamemaker.desktop".text = ''
-  #[Desktop Entry]
-  #Type=Application
-  #Name=GameMaker
-  #Exec=${config.home.homeDirectory}/bin/gm.sh
-  #Icon=${config.home.homeDirectory}/bin/GameMaker/opt/GameMaker-Beta/GameMaker.png
-  #Terminal=false
-  #Categories=Development;
-  #StartupNotify=false
-#'';
-	
 
 }

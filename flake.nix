@@ -1,30 +1,32 @@
 {
-	description = "corvus";
+	description = "edrick";
 
 	inputs = {
-		nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+		nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
 		nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-		home-manager.url = "github:nix-community/home-manager/release-25.05";
+		home-manager.url = "github:nix-community/home-manager/release-25.11";
 		home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-		ags.url = "github:Aylur/ags";
-		hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+		#NOTE: we aren't using these anymore but we will leave this here as an example
+		#ags.url = "github:Aylur/ags";
+		#hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
 	};
 
-	outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ags, hyprpanel, ...}: 
+	#outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ags, hyprpanel, ...}: 
+	outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ...}: 
 		let lib = nixpkgs.lib;
 	system = "x86_64-linux";
 	pkgs = nixpkgs.legacyPackages.${system};
 	pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
 
 	pkgs-custom = {
-		ags = ags.packages.${system}.default;
-		hyprpanel = hyprpanel.packages.${system}.default;
+		#ags = ags.packages.${system}.default;
+		#hyprpanel = hyprpanel.packages.${system}.default;
 	};
 	in {
 
 		nixosConfigurations = {
-			corvus = lib.nixosSystem {
+			edrick = lib.nixosSystem {
 				inherit system;
 				modules = [
 					./configuration.nix
@@ -40,7 +42,7 @@
 
 
 		homeConfigurations = {
-			corvus = home-manager.lib.homeManagerConfiguration {
+			edrick = home-manager.lib.homeManagerConfiguration {
 				inherit pkgs;
 				modules = [
 					./home.nix
