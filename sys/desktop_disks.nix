@@ -19,7 +19,6 @@
 			"dmask=022"
 			"fmask=022"
 			"exec"
-			"permissions"
 		];
 	};
 
@@ -34,7 +33,6 @@
 			"dmask=022"
 			"fmask=022"
 			"exec"
-			"permissions"
 		];
 	};
 }
