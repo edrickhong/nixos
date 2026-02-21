@@ -24,6 +24,11 @@
 			spotify
 			vesktop
 
+			gnumake
+			gcc
+			binutils
+			
+
 
 #lsp
 			nil
