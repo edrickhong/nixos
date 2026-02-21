@@ -56,6 +56,7 @@
 
 			(with pkgs-unstable; [
 			 orca-slicer
+			 tree-sitter
 			]) ++
 
 			(with pkgs-custom; [
