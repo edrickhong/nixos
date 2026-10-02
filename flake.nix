@@ -22,6 +22,7 @@
 	pkgs-custom = {
 		#ags = ags.packages.${system}.default;
 		#hyprpanel = hyprpanel.packages.${system}.default;
+		raddebugger = pkgs.callPackage ./packages/raddbg.nix {};
 	};
 	in {
 

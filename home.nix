@@ -65,6 +65,7 @@
 			]) ++
 
 			(with pkgs-custom; [
+				raddebugger
 			]);
 
 
