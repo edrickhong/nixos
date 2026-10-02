@@ -57,6 +57,11 @@
 			(with pkgs-unstable; [
 			 orca-slicer
 			 tree-sitter
+			 ripgrep
+			 meld
+			 gitg
+			 gdb
+			 cgdb
 			]) ++
 
 			(with pkgs-custom; [
