@@ -39,14 +39,39 @@
 				};
 
 			};
+
+			noctua = lib.nixosSystem {
+				inherit system;
+				modules = [
+					./hosts/noctua/configuration.nix
+				];
+
+				specialArgs = {
+					inherit pkgs-unstable;
+					inherit pkgs-custom;
+				};
+
+			};
 		};
 
 
 		homeConfigurations = {
-			edrick = home-manager.lib.homeManagerConfiguration {
+			"edrick@vultur" = home-manager.lib.homeManagerConfiguration {
 				inherit pkgs;
 				modules = [
-					./home/home.nix
+					./home/vultur.nix
+				];
+
+				extraSpecialArgs = {
+					inherit pkgs-unstable;
+					inherit pkgs-custom;
+				};
+			};
+
+			"edrick@noctua" = home-manager.lib.homeManagerConfiguration {
+				inherit pkgs;
+				modules = [
+					./home/noctua.nix
 				];
 
 				extraSpecialArgs = {

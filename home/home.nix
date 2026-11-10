@@ -137,7 +137,6 @@
 		shellAliases = {
 			vim = "nvim";
 			nx-switch = "pushd ~/.config/nixos && sudo nixos-rebuild switch --flake .#$(hostname) && popd";
-			hm-switch = "pushd ~/.config/nixos && home-manager switch --flake .#edrick && popd";
 			nx-init-py = "nix-init-py.sh";
 			nx-dev = "nix develop";
 		};
