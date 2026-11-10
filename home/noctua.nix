@@ -1,6 +1,4 @@
-
-
-{...}:
+{ pkgs,pkgs-unstable,pkgs-custom, ... }:
 
 {
 	imports = [

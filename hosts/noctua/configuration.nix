@@ -9,7 +9,7 @@
 	imports =
 	[ # Include the results of the hardware scan.
 	./hardware-configuration.nix
-	#../../de/gnome.nix 
+	../../de/gnome.nix 
 	];
 
 	config = {
@@ -44,6 +44,11 @@
 			];
 		};
 
+		users.users.gaming = {
+			isNormalUser = true;
+			description = "Visual Gaming User";
+			extraGroups = [ "video" "render" "audio" "input"]; # Enable ‘sudo’ for the user.
+		};
 		nix.settings.experimental-features = [ "nix-command" "flakes"];
 
 		nixpkgs.config.allowUnfree = true;
@@ -90,6 +95,7 @@
 		#setup graphics
 		hardware.graphics = {
 			enable = true;
+			enable32Bit = true;
 		};
 
 		hardware.nvidia = {
@@ -110,6 +116,14 @@
 			publish = {
 				enable = true;
 				addresses = true;
+			};
+		};
+
+		#login to gaming user
+		services.displayManager = {
+			autoLogin = {
+				enable = true;
+				user = "gaming";
 			};
 		};
 
@@ -149,6 +163,27 @@
 			dates = "weekly";
 			options = "--delete-generations +5";
 		};
+
+		#this tops gaming user from powering off
+		security.polkit.enable = true;
+		security.polkit.extraConfig = ''
+		polkit.addRule(function(action, subject)){
+			const blocked = [
+				"org.freedesktop.login1.power-off",
+				"org.freedesktop.login1.power-off-multiple-sessions",
+				"org.freedesktop.login1.reboot",
+				"org.freedesktop.login1.reboot-multiple-sessions",
+				"org.freedesktop.login1.suspend",
+				"org.freedesktop.login1.suspend-multiple-sessions",
+				"org.freedesktop.login1.hibernate",
+				"org.freedesktop.login1.hibernate-multiple-sessions",
+			];
+
+			if(subject.user == "gaming" && blocked.indexOf(action.id) !== -1){
+				return polkit.Result.NO;
+			}
+		}
+		'';
 
 		swapDevices = [ { device = "/swapfile"; size = 16 * 1024; } ];
 

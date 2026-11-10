@@ -20,21 +20,14 @@
 # The home.packages option allows you to install Nix packages into your
 # environment.
 	home.packages = with pkgs; [
-		        google-chrome
-			spotify
-			vesktop
-
 			gnumake
 			gcc
 			binutils
 			
 
-
 #lsp
 			nil
 			clang-tools
-
-			libreoffice
 
 			v4l-utils
 			libva-utils
@@ -55,17 +48,15 @@
 			] ++
 
 			(with pkgs-unstable; [
-			 orca-slicer
 			 tree-sitter
 			 ripgrep
-			 meld
 			 gitg
 			 gdb
 			 cgdb
 			]) ++
 
 			(with pkgs-custom; [
-				raddebugger
+				#raddebugger
 			]);
 
 

@@ -79,6 +79,17 @@
 					inherit pkgs-custom;
 				};
 			};
+			"gaming@noctua" = home-manager.lib.homeManagerConfiguration {
+				inherit pkgs;
+				modules = [
+					./home/gaming.nix
+				];
+
+				extraSpecialArgs = {
+					inherit pkgs-unstable;
+					inherit pkgs-custom;
+				};
+			};
 		};
 
 
