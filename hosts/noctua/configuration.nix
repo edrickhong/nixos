@@ -104,6 +104,15 @@
 
 		services.xserver.videoDrivers = ["nvidia"];
 
+		services.avahi = {
+			enable = true;
+			nssmdns4 = true;
+			publish = {
+				enable = true;
+				addresses = true;
+			};
+		};
+
 		# Enable sound.
 		services.pipewire = {
 			enable = true;
