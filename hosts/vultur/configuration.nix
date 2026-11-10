@@ -97,6 +97,11 @@
 
 		hardware.bluetooth.enable = true;
 
+		services.avahi = {
+			enable = true;
+			nssmdns4 = true;
+			};
+
 		# Enable sound.
 		services.pipewire = {
 			enable = true;
