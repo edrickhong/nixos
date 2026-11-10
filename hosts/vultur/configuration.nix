@@ -8,9 +8,9 @@
 	imports =
 	[ # Include the results of the hardware scan.
 	./hardware-configuration.nix
-	./sys/desktop_disks.nix 
-	./sys/gnome.nix 
-	#./sys/hyprland.nix #TODO: test this out
+	./desktop_disks.nix 
+	../../de/gnome.nix 
+	#../../de/hyprland.nix #TODO: test this out
 	];
 
 	config = {

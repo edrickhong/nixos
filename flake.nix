@@ -1,5 +1,5 @@
 {
-	description = "edrick";
+	description = "NixOS & Home Manager config";
 
 	inputs = {
 		nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
@@ -27,10 +27,10 @@
 	in {
 
 		nixosConfigurations = {
-			edrick = lib.nixosSystem {
+			vultur = lib.nixosSystem {
 				inherit system;
 				modules = [
-					./configuration.nix
+					./hosts/vultur/configuration.nix
 				];
 
 				specialArgs = {
@@ -46,7 +46,7 @@
 			edrick = home-manager.lib.homeManagerConfiguration {
 				inherit pkgs;
 				modules = [
-					./home.nix
+					./home/home.nix
 				];
 
 				extraSpecialArgs = {
