@@ -20,6 +20,13 @@
 			efi.canTouchEfiVariables = true;
 		};
 
+		systemd.sleep.settings.Sleep = {
+			AllowSuspend = "no";
+			AllowHibernation = "no";
+			AllowHybridSleep = "no";
+			AllowSuspendThenHibernate = "no";
+		};
+
 		networking = {
 			hostName = "noctua";
 			networkmanager.enable = true;
@@ -146,6 +153,12 @@
 		#file mounting services
 		services.gvfs.enable = true;
 		services.udisks2.enable = true;
+
+		#prevent system level suspension
+		services.logind.settings.Login = {
+			IdleAction = "ignore";
+			HandleLidSwitch = "ignore";
+		};
 
 		# Some programs need SUID wrappers, can be configured further or are
 		# started in user sessions.
