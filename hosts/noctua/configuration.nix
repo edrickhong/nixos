@@ -180,7 +180,7 @@
 		#this tops gaming user from powering off
 		security.polkit.enable = true;
 		security.polkit.extraConfig = ''
-		polkit.addRule(function(action, subject)){
+		polkit.addRule(function(action, subject){
 			const blocked = [
 				"org.freedesktop.login1.power-off",
 				"org.freedesktop.login1.power-off-multiple-sessions",
@@ -193,9 +193,11 @@
 			];
 
 			if(subject.user == "gaming" && blocked.indexOf(action.id) !== -1){
+				polkit.log("POWER CHECK: usr=" + subject.user + " action=" + action.id);
 				return polkit.Result.NO;
 			}
 		}
+		);
 		'';
 
 		swapDevices = [ { device = "/swapfile"; size = 16 * 1024; } ];
