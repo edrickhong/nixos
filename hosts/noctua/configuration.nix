@@ -43,9 +43,10 @@
 
 
 		# Define a user account. Don't forget to set a password with ‘passwd’.
+		users.groups.media = {};
 		users.users.edrick = {
 			isNormalUser = true;
-			extraGroups = [ "wheel" "networkmanager"]; # Enable ‘sudo’ for the user.
+			extraGroups = [ "wheel" "networkmanager" "media"]; # Enable ‘sudo’ for the user.
 			packages = with pkgs; [
 			tree
 			];
@@ -54,8 +55,10 @@
 		users.users.gaming = {
 			isNormalUser = true;
 			description = "Visual Gaming User";
-			extraGroups = [ "video" "render" "audio" "input"]; # Enable ‘sudo’ for the user.
+			extraGroups = [ "video" "render" "audio" "input" "uinput"]; # Enable ‘sudo’ for the user.
 		};
+		users.users.jellyfin.extraGroups = ["media" "video" "render"];
+
 		nix.settings.experimental-features = [ "nix-command" "flakes"];
 
 		nixpkgs.config.allowUnfree = true;
@@ -114,6 +117,18 @@
 			};
 
 		hardware.bluetooth.enable = true;
+
+		services.jellyfin = {
+			enable = true;
+			openFirewall = true;
+		};
+
+		services.sunshine = {
+			enable = true;
+			autoStart = true;
+			capSysAdmin = true;
+			openFirewall = true;
+		};
 
 		services.xserver.videoDrivers = ["nvidia"];
 
