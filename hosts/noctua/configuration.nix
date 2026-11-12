@@ -31,6 +31,7 @@
 			hostName = "noctua";
 			networkmanager.enable = true;
 			nameservers = [ "8.8.8.8" "8.8.4.4"];
+			firewall.allowedTCPPorts = [8080]; #8080 for qbittorrent
 		};
 
 		time.timeZone = "America/New_York";
@@ -58,6 +59,7 @@
 			extraGroups = [ "video" "render" "audio" "input" "uinput"]; # Enable ‘sudo’ for the user.
 		};
 		users.users.jellyfin.extraGroups = ["media" "video" "render"];
+		users.users.qbittorrent.extraGroups = ["media"];
 
 		nix.settings.experimental-features = [ "nix-command" "flakes"];
 
@@ -117,6 +119,16 @@
 			};
 
 		hardware.bluetooth.enable = true;
+
+		services.prowlarr = {
+			enable = true;
+			openFirewall = true;
+		};
+
+		services.qbittorrent = {
+			enable = true;
+			webuiPort = 8080;
+		};
 
 		services.jellyfin = {
 			enable = true;
