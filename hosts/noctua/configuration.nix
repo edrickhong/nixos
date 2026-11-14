@@ -32,6 +32,9 @@
 			networkmanager.enable = true;
 			nameservers = [ "8.8.8.8" "8.8.4.4"];
 			firewall.allowedTCPPorts = [8080]; #8080 for qbittorrent
+			firewall.extraCommands = ''
+			iptables -A nixos-fw -s 192.168.29.0/24 -p tcp --dport 445 -j nixos-fw-accept
+			'';
 		};
 
 		time.timeZone = "America/New_York";
@@ -120,6 +123,33 @@
 
 		hardware.bluetooth.enable = true;
 
+		services.samba = {
+			enable = true;
+			openFirewall = true;
+
+			settings = {
+				global = {
+					workgroup = "WORKGROUP";
+					"server string" = "noctua";
+					"server role" = "standalone server";
+					"security" = "user";
+					"map to guest" = "Never";
+				};
+
+				media = {
+					path = "/srv/media";
+					browseable = "yes";
+					"read only" = "no";
+					"guest ok" = "no";
+					"valid users" = "edrick";
+					"force group" = "media";
+					"create mask" = "0660";
+					"directory mask" = "2770";
+					"force directory mode" = "2000";
+				};
+			};
+		};
+
 		services.prowlarr = {
 			enable = true;
 			openFirewall = true;
@@ -128,6 +158,10 @@
 		services.qbittorrent = {
 			enable = true;
 			webuiPort = 8080;
+		};
+
+		systemd.services.qbittorrent.serviceConfig = {
+			UMask = "0002";
 		};
 
 		services.jellyfin = {
